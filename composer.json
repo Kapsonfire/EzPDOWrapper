@@ -1,0 +1,22 @@
+{
+    "name": "kapsonfire/ez-pdo-wrapper",
+    "description": "Fast and Easy PDO Wrapper for MYSQL",
+    "require": {
+        "php": ">=7.2.0",
+        "ext-PDO": ">=7.2.0"
+    },
+    "authors": [
+        {
+            "name": "Kapsonfire",
+            "email": "kapsonfire@gmx.de"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Kapsonfire\\EzPDOWrapper\\" : "src"
+        }
+    },
+    "license": [
+        "LGPL-3.0-only"
+    ]
+}
