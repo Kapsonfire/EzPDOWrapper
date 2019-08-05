@@ -13,6 +13,7 @@
     ],
     "autoload": {
         "psr-4" : {
+            "Kapsonfire\\EzPDOWrapper\\" : "src/Kapsonfire/EzPDOWrapper"
         }
     },
     "license": [
