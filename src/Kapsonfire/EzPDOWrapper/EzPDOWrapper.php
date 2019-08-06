@@ -80,7 +80,7 @@ class EzPDOWrapper
     }
 
 
-    function createWhere(array $conditions, $connector = 'OR'): ?array
+    protected function createWhere(array $conditions, $connector = 'OR'): ?array
     {
         if (empty($conditions)) return null;
 
@@ -114,7 +114,7 @@ class EzPDOWrapper
     }
 
 
-    public function createSelectColumns($columns): string
+    protected function createSelectColumns($columns): string
     {
         return implode(', ', array_map(function ($column) {
             if ($column === '*') return $column;
@@ -123,6 +123,19 @@ class EzPDOWrapper
         }, $columns));
     }
 
+    protected function createOrderBy($order) : string {
+        if(is_string($order)) {
+            return $this->escapeIdentifier($order);
+        }
+        return implode(', ', array_map(function ($orderData) {
+            $column = $this->escapeIdentifier($orderData[0]);
+            $direction = $orderData[1] ?? 'ASC'; if($direction !== 'DESC' && $direction !== 'ASC') {
+                $direction = 'ASC';
+            }
+
+            return $column.' '.$direction;
+        }, $order));
+    }
 
     public function createSelectStatement(string $table, $columns = ['*'], $where = [], $options = [], &$params = []) {
         $sql = 'SELECT ';
@@ -134,6 +147,11 @@ class EzPDOWrapper
             $sql .= ' WHERE ' . $where['sql'];
             $params = array_merge($params, $where['params']);
         }
+
+        if(isset($options['order'])) {
+            $sql .= ' ORDER BY'.$this->createOrderBy($options['order']);
+        }
+
 
         return $sql;
     }
