@@ -149,7 +149,7 @@ class EzPDOWrapper
         }
 
         if(isset($options['order'])) {
-            $sql .= ' ORDER BY'.$this->createOrderBy($options['order']);
+            $sql .= ' ORDER BY '.$this->createOrderBy($options['order']);
         }
 
 
