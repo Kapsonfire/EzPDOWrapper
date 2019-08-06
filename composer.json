@@ -18,5 +18,11 @@
     },
     "license": [
         "LGPL-3.0-only"
-    ]
+    ],
+  "repositories": [
+    {
+      "type": "github",
+      "url":  "https://github.com/Kapsonfire/EzPDOWrapper.git"
+    }
+  ]
 }
