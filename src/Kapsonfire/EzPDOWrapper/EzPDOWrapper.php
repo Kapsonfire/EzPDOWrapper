@@ -146,7 +146,7 @@ class EzPDOWrapper
         $params = [];
 
 
-        $sql = $this->createSelectColumns($table, $columns, $where, $options, $params);
+        $sql = $this->createSelectStatement($table, $columns, $where, $options, $params);
 
 
         $stmt = $this->db->prepare($sql);
