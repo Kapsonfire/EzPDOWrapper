@@ -123,12 +123,8 @@ class EzPDOWrapper
         }, $columns));
     }
 
-    public function select(string $table, $columns = ['*'], $where = [], $options = [])
-    {
-        $fullBuffered = boolval($options['buffered'] ?? true);
-        $fetchStyle = intval($options['fetchstyle'] ?? \PDO::FETCH_ASSOC);
 
-        $params = [];
+    public function createSelectStatement(string $table, $columns = ['*'], $where = [], $options = [], &$params = []) {
         $sql = 'SELECT ';
         $sql .= $this->createSelectColumns($columns);
         $sql .= ' FROM ' . $this->escapeIdentifier($table);
@@ -138,6 +134,19 @@ class EzPDOWrapper
             $sql .= ' WHERE ' . $where['sql'];
             $params = array_merge($params, $where['params']);
         }
+
+        return $sql;
+    }
+
+    public function select(string $table, $columns = ['*'], $where = [], $options = [])
+    {
+        $fullBuffered = boolval($options['buffered'] ?? true);
+        $fetchStyle = intval($options['fetchstyle'] ?? \PDO::FETCH_ASSOC);
+
+        $params = [];
+
+
+        $sql = $this->createSelectColumns($table, $columns, $where, $options, $params);
 
 
         $stmt = $this->db->prepare($sql);
