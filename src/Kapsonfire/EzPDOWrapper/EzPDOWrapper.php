@@ -80,7 +80,7 @@ class EzPDOWrapper
     }
 
 
-    function createWhere(array $conditions, $connector = 'OR'): array
+    function createWhere(array $conditions, $connector = 'OR'): ?array
     {
         if (empty($conditions)) return null;
 
