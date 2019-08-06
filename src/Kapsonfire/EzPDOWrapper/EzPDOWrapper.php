@@ -152,6 +152,17 @@ class EzPDOWrapper
             $sql .= ' ORDER BY '.$this->createOrderBy($options['order']);
         }
 
+        $limit = '';
+        if(isset($options['limit'])) {
+            if(is_array($options['limit'])) {
+                $limit = intval($options['limit'][0]).','.intval($options['limit'][1]);
+            }
+            $limit = intval($options['limit']);
+        }
+        if(strlen($limit) > 0) {
+            $sql .= ' LIMIT '.$limit;
+        }
+
 
         return $sql;
     }
